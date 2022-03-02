@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import DetailForm from "./components/DetailForm";
+import AsteroidForm from "./components/AsteroidForm";
+import { Routes, Route } from "react-router-dom";
+import { applyMiddleware, createStore } from "redux";
+import { asteroidStore } from "./redux/reducer/asteroidStore";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+const store = createStore(asteroidStore, applyMiddleware(thunk));
+// import { Switch } from "@mui/material";
+// const nameList = [
+//   {
+//     firstName: "krunal",
+//     lastName: "patel",
+//   },
+//   {
+//     firstName: "komal",
+//     lastName: "patel",
+//   },
+//   {
+//     firstName: "sunny",
+//     lastName: "davda",
+//   },
+// ];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Routes>
+        {/* <DetailForm names={nameList} /> */}
+        {/* <AsteroidForm /> */}
+
+        <Route path="/" element={<AsteroidForm />} />
+        <Route path="/DetailForm" element={<DetailForm />} />
+      </Routes>
+    </Provider>
   );
 }
 
